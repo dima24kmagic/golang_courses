@@ -206,3 +206,94 @@ import "fmt"
 // 	fmt.Println("By hands - ", divided - a * divider)
 // }
 
+// --------*: Exercises :*-------- //
+// func main() {
+// 	fmt.Println("Dima")
+// }
+
+// func main() {
+// 	const name string = "Dima"
+// 	fmt.Println(name)
+// }
+
+// func main()  {
+// 	var name string
+// 	fmt.Println("Enter Your name")
+// 	fmt.Scan(&name)
+// 	fmt.Println("Hello ", name)
+// }
+
+// func main() {
+// 	fmt.Println("Enter small number")
+// 	var smallNum int
+// 	fmt.Scan(&smallNum)
+// 	fmt.Println("Enter Large Number")
+// 	var largeNum int
+// 	fmt.Scan(&largeNum)
+// 	fmt.Println("Remainder is - ", largeNum%smallNum)
+// }
+
+// --------*: CONTROL FLOW :*-------- //
+
+//For loop
+// func main() {
+// 	for i := 1; i <= 100; i++ {
+// 		fmt.Println(i)
+// 	}
+// }
+
+// For loop in for loop
+// func main() {
+// 	for i := 0; i < 10; i++ {
+// 		for j := 0; j < 10; j++ {
+// 			fmt.Println(i, " - ", j)
+// 		}
+// 	}
+// }
+
+// For loop with condition (like C While Loop)
+// func main()  {
+// 	i := 0
+// 	for i<10 {
+// 		fmt.Println("Sugar")
+// 		i++
+// 	}
+// }
+
+// Using *: continue :* keyword
+// func main() {
+// 	i := 1
+// 	for {
+// 		i++
+// 		if i%2 != 0 {
+// 			continue // if continue call - stop current loop iteration and start it from beginnig
+// 		}
+// 		fmt.Println(i)
+// 		if i > 50 {
+// 			break
+// 		}
+// 	}
+// }
+
+//*: Runes :*
+// func main() {
+// 	//@NOTE: Rune is a any character from any language all over the world
+// 	//@ASK: What does Rune represent in Golang?
+// 	//@NOTE: It is a decimal int value, that stands for a character decimal value in UTF-8 Table
+// 	a := 'a' //97 in UTF-8 table
+// 	fmt.Println(a) //97
+// 	fmt.Printf("%b \n", a) // binary representation of a rune (from ascii table)
+// }
+
+// func main()  {
+// 	for i := 33; i < 256; i++ {
+// 		fmt.Println(i, " - ", string(i), " - ", []byte(string(i)))
+// 	}
+// }
+
+func main() {
+	a := 5
+	fmt.Println(a)
+	*&a = 7
+	fmt.Println(a)
+}
