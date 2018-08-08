@@ -291,9 +291,83 @@ import "fmt"
 // 	}
 // }
 
+// Switch
+// @NOTE: No fall through in default switch
+// func main() {
+// 	switch "Dima" {
+// 	case "Kate":
+// 	case "Nikol":
+// 		fmt.Println("Nikol")
+// 	case "Dima":
+// 		fmt.Println("Dima")
+// 	case "Rebook":
+// 	default:
+// 		fmt.Println("Hi")
+// 	}
+// }
+
+// Switch with *: fallthrough :*
+// @NOTE: you can specify fallthrough by keyword fallthrough
+// func main() {
+// 	switch "Dima" {
+// 	case "Kate":
+// 	case "Nikol":
+// 		fmt.Println("Nikol")
+// 	case "Dima":
+// 		fmt.Println("Dima")
+// 		fallthrough
+// 	case "Rebook":
+// 		fmt.Println("I'm fallthrough consequence!")
+// 	default:
+// 		fmt.Println("Hi")
+// 	}
+// }
+
+// Switch with cases variation
+// func main() {
+// 	switch "Dima" {
+// 	case "Kate":
+// 	case "Nikol":
+// 		fmt.Println("Nikol")
+// 	case "Jordan", "Dima":         // @NOTE: Multiple cases
+// 		fmt.Println("Dima")
+// 	case "Rebook":
+// 	default:
+// 		fmt.Println("Hi")
+// 	}
+// }
+
+// Switch with no expression
+// func main() {
+// 	switch { //@NOTE: no expresion defined, so it's going through cases finding that evaluate to true
+// 	case 5 == 2:
+// 	case 1 > 3:
+// 		fmt.Println("Nikol")
+// 	case 2 < 7:
+// 		fmt.Println("Dima")
+// 	case 7 > 10:
+// 	default:
+// 		fmt.Println("Hi")
+// 	}
+// }
+
+// Switch by type
+type Contact struct {
+	greeting stringname string
+}
+func switchontype(x interface{}){
+	switch x, (type) {
+	case string:
+	case int:
+		fmt.Println("Nikol")
+	case bool:
+		fmt.Println("Dima")
+	case float32:
+	default:
+		fmt.Println("Hi")
+	}
+})
 func main() {
-	a := 5
-	fmt.Println(a)
-	*&a = 7
-	fmt.Println(a)
+	x := 5
+	
 }
