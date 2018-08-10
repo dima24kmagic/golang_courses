@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // Passign the callback and returning function
 // func wrapper(cb func()) func(someVal int) {
 // 	cb()
@@ -590,7 +588,7 @@ import "fmt"
 // 	defer file.Close() //NOTE: We closing the file, so it's not use the os resources. And not for type this at the end of a func, we just use defer
 // }
 
-// Slices is reference type example 
+// Slices is reference type example
 // func changeSlice(x []int) {
 // 	// x =[]int{3, 2, 1}
 // 	x[0] = 9
@@ -619,7 +617,7 @@ import "fmt"
 // func main()  {
 // 	func(n int){
 // 		fmt.Println(n)
-// 	}(5)	
+// 	}(5)
 // }
 
 // --- *: Bool Expressions :* --- //
@@ -646,10 +644,234 @@ import "fmt"
 // 	typeSwitcher := func(a interface{}) {
 // 		switch a.(type) {
 // 		case int:
-			
+
 // 		}
 // 	}
 // 	typeSwitcher(5)
 // 	typeSwitcher("HIII")
 // 	typeSwitcher(true)
 // }
+
+// --------- *: DATA STRUCTURES :* --------- //
+
+// 1) SLICES (AKA Array, List) *value of uninitialized is nil					:*Reference Type
+// 2) MAPS (*key/value* Store key and values) *value of uninitialized is nil	:*Reference Type
+// 3) STRUCT (Structure *similar to object, can have props and methods inside*)
+
+// Arrays
+// func main() {
+// 	// NOTE: If you got numbers in brackets - its ARRAY, if not - it's a slice
+// 	// NOTE: Length is part of array type
+// 	// NOTE: Not dynamic, *slices are
+// 	var x [58]string
+// 	fmt.Println(x)
+// 	fmt.Println(len(x))
+// 	fmt.Println(x[42])
+// 	for i := 65; i <= 122; i++ {
+// 		x[i - 65] = string(i)
+// 	}
+// 	fmt.Println(x)
+// 	fmt.Println(len(x))
+// 	fmt.Println(x[42])
+// }
+
+// Slices
+// func main() {
+// 	// NOTE: unlike array, slices got dynamic size
+// 	mySlice := []int{1, 2, 3, 4, 1, 23}
+// 	fmt.Printf("%T\n", mySlice)
+// 	fmt.Println(mySlice)
+// }
+
+// Slice vs slicing cs index access
+// func main()  {
+// 	mySlice := []string{"a", "b", "c", "d", "e"}
+// 	fmt.Println(mySlice) //[a b c d e]
+// 	fmt.Println(mySlice[2:4]) //slicing a slice (basically saying - get all elements including from position to, to excluding position 4) *[c d]
+// 	fmt.Println(mySlice[2]) // index access
+// 	fmt.Println(string("Some String"[6])) //index access //116, and converst to string
+// }
+
+// NOTE: slice got an underlying arary behind, so size of slice is size of slice, :* Capacity is Size of array behind slice *:
+// func main() {
+// 	// NOTE: make a slice with length 10, and underly array of size 100 *so pc don't need to create new slice and underly array of more size*
+// 	mySl := make([]int, 0, 5)
+// 	// exact same thing using :* new keyword *:
+// 	// mySl := new([100]int)[0:10]
+// 	fmt.Println(mySl)
+// 	for i := 0; i < 20; i++ {
+// 		// :*NOTE:NOTE:*: That's the way to add elements to slice dynamicly
+// 		mySl = append(mySl, i)
+// 		fmt.Println("Len: ", len(mySl), "Capacity: ", cap(mySl), "Value:", mySl[i])
+// 	}
+// 	fmt.Println(mySl)
+// }
+
+// Appending slice to a slice
+// func main()  {
+// 	mySlice := []int{1,2,3,4,1,3}
+// 	yourSlice := []int{1,3,4,15,2}
+// 	mySlice = append(mySlice, yourSlice...) //NOTE: using variadic args ;)
+// }
+
+// Deleting from slice
+// func main()  {
+// 	mySlice := []int{1,2,3}
+// 	yourSlice := []int{4,5,6}
+
+// 	mySlice = append(mySlice, yourSlice...)
+// 	fmt.Println(mySlice)
+
+// 	// NOTE: like saying - yo, get all elements of a slice except :* second one (it's third one, 'cause 0, 1, 3) *:, then add elements from third position ( but like from fourth position, 'cause 0,1,2,3) to the end
+// 	mySlice = append(mySlice[:2], mySlice[3:]...)
+// 	fmt.Println(mySlice)
+// }
+
+// More slice examples
+// Multi dimensional slice
+// func main() {
+// 	records := make([][]string, 0)
+// 	student1 := make([]string, 4)
+// 	// First Student
+// 	student1[0] = "Dima"
+// 	student1[1] = "Baranov"
+// 	student1[2] = "100%"
+// 	student1[3] = "4.5"
+// 	// append student to array
+// 	records = append(records, student1)
+// 	// Next Student
+// 	student2 := make([]string, 4)
+// 	student2[0] = "DJ"
+// 	student2[1] = "Khalid"
+// 	student2[2] = "85%"
+// 	student2[3] = "7.5"
+// 	// store dj khaled
+// 	records = append(records, student2)
+// 	fmt.Println(records)
+// 	// Slice that contain slice
+// 	// NOTE: more convinient way to stire structs *As i think*
+// 	type man struct {
+// 		name string
+// 	}
+// 	mans := make([]man, 1)
+// 	dima := man{"Dima"}
+// 	mans = append(mans, dima)
+// }
+
+// TESTING
+// WHY? I want to test, how fast it gonna be create a 100 million slice, and delete from it's something or move it higher
+// NOTE: It's was super fast
+// func main() {
+// NOTE: That's an the most idiomatic way to create slices
+// 	millionSlice := make([]string, 100000000)
+// 	// add values to the slice
+// 	chars := [10]string{"a", "b", "d", "c", "k", "s", "q", "e", "o", "m"}
+
+// 	createWord := func(param [10]string) string {
+// 		var word string
+// 		for i := 0; i < 3; i++ {
+// 			randomNum := rand.Intn(len(param))
+// 			word += param[randomNum]
+// 		}
+// 		return word
+// 	}
+// 	for i := 0; i < 100000000; i++ {
+// 		millionSlice[i] = createWord(chars)
+// 	}
+// 	fmt.Println("done")
+// 	fmt.Println(millionSlice[99999997], millionSlice[99999998], millionSlice[99999999])
+// 	swap := millionSlice[99999998]
+// 	millionSlice[99999998] = millionSlice[99999999]
+// 	millionSlice[99999999] = swap
+// 	fmt.Println(millionSlice[99999997], millionSlice[99999998], millionSlice[99999999])
+// 	fmt.Println("got it")
+// 	millionSlice = append(millionSlice[:99999995], millionSlice[99999996:]...)
+// 	fmt.Println("Deleted")
+// }
+
+// Example using slice
+// func main() {
+// 	mySlice := make([]int, 1)
+// 	fmt.Println(mySlice[0])
+// 	mySlice[0] = 5
+// 	fmt.Println(mySlice[0])
+// 	// :* Cool way to increase slice;) *:
+// 	mySlice[0]++
+// 	fmt.Println(mySlice[0])
+// }
+
+// NOTE: Expirience with slices of interface
+// func main() {
+// 	// Creating a slice of interfaces *like we can put whatever we want
+// 	interSlice := make([]interface{}, 3)
+// 	// Put string
+// 	interSlice[0] = "A"
+// 	// Put int
+// 	interSlice[1] = 1
+// 	// Put func, but
+// 	// NOTE: it's putting not the func, but it's reference to memory adress
+// 	interSlice[2] = func(){
+// 		fmt.Println("Hi")
+// 	}
+// 	fmt.Println(interSlice) // [A 1 0x482270]
+// 	// So, to use it, we doing assertion, and then self executing this function, btw we can do like this -->
+// 	// --> myFunc := interSlice[2].(func()) -->
+// 	// --> myFunc()
+// 	interSlice[2].(func())()
+// }
+
+// --- :* MAPS *: --- //
+// some lang called a dictionary
+
+// NOTE: Create a map is pretty instinct make(map[string]int) - is like to saying - yo, make a map, that got key and it's string, and when i use this key - i'll get the int value
+// func main() {
+// 	myMap := make(map[string]int)
+// 	myMap["DIMA"] = 5
+// 	myMap["China"] = 175
+// 	fmt.Println(myMap)
+// }
+
+// func main()  {
+// 	myMap := make(map[string]int)
+// 	// NOTE: Add to map
+// 	myMap["DIMA"] = 5
+// 	myMap["China"] = 175
+// 	fmt.Println(myMap)
+// 	// NOTE: length of a map
+// 	fmt.Println(len(myMap))
+// 	// NOTE: delete from map
+// 	delete(myMap, "China")
+// 	// NOTE: create a map with predefined values
+// 	constValues := map[string]int{"Drake": 31, "Kendrick": 29}
+// 	fmt.Println(constValues, constValues["Drake"], constValues["Kendrick"])
+// 	// NOTE: check for a key in map
+// 	value, isKeyHere := constValues["Drake"] // checking for key existense
+// 	fmt.Println(value,",", isKeyHere) // 31, true
+// }
+
+// Using if and map
+// func main() {
+// 	myMap := map[int]string{1: "1", 2: "2", 3: "3", 4: "4"}
+// 	delete(myMap, 1)
+// 	if _, exist := myMap[1]; exist { // NOTE: using existence of value in map by it's key
+// 		fmt.Println(myMap[1], "Is exist")
+// 	} else {
+// 		fmt.Println(myMap[1], "Doesn't exist")
+// 	}
+// }
+
+// More Example
+// :* Map in Map *:
+// func main() {
+// 	elements := map[string]map[string]string{
+// 		"H": map[string]string{
+// 			"name":  "Helium",
+// 			"state": "Gas",
+// 		},
+// 	}
+// 	fmt.Println(elements["H"]["name"])
+// }
+
+func main() {
+
+}
