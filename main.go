@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // Passign the callback and returning function
 // func wrapper(cb func()) func(someVal int) {
 // 	cb()
@@ -872,6 +874,27 @@ package main
 // 	fmt.Println(elements["H"]["name"])
 // }
 
-func main() {
+// :* Range loop *:
+// func main() {
+// 	// Range loop for map
+// 	myMap := map[int]string{
+// 		0: "Buy milk",
+// 		2: "Meet my friends",
+// 	}
+// 	// NOTE: keyword range is like a function, that return a values and can be used in for loop
+// 	for i, val := range myMap {
+// 		fmt.Println(i, val)
+// 	}
+// 	// Range loop for slice
+// 	mySlice := make([]int, 20, 100)
+// 	fmt.Println(mySlice)
+// 	for i := range mySlice {
+// 		mySlice[i] = i
+// 	}
+// 	fmt.Println(mySlice)
+// }
 
+// :* Hash Tables *:
+func main()  {
+	
 }
