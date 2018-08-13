@@ -872,6 +872,66 @@ package main
 // 	fmt.Println(elements["H"]["name"])
 // }
 
+// :* Hash Tables *:
+
+// func main() {
+// 	res, _ := http.Get("http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt")
+// 	// bs - bytes slice
+// 	bs, _ := ioutil.ReadAll(res.Body)
+// 	str := string(bs)
+// 	fmt.Println(str)
+// }
+
+// Create a map from txt file with words
+// func main() {
+// 	res, _ := http.Get("http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt")
+// 	words := make(map[string]string)
+// 	// :* byfio - buffer input/output
+// 	// Buffer - area to stick up some data
+// 	// NOTE: we create a buffer and put the response body in it
+// 	sc := bufio.NewScanner(res.Body)
+// 	// Split data in buffer by words
+// 	sc.Split(bufio.ScanWords)
+// 	for sc.Scan() {
+// 		words[sc.Text()] = ""
+// 	}
+// 	if err := sc.Err(); err != nil {
+// 		fmt.Fprintln(os.Stderr, "reading input", err)
+// 	}
+// 	i := 0
+// 	for k := range words {
+// 		fmt.Println(k)
+// 		if i == 200 {
+// 			break
+// 		}
+// 		i++
+// 	}
+// }
+
+// func hashBucket(word string) int {
+// 	return int(word[0])
+// }
+// func main() {
+// 	// Get the book moby dick
+// 	res, err := http.Get("http://www.gutenberg.org/files/2701/old/moby10b.txt")
+// 	if err != nil {
+// 		log.Fatalln(err)
+// 	}
+// 	// scan the page
+// 	scanner := bufio.NewScanner(res.Body)
+// 	defer res.Body.Close()
+// 	// Set the split function for the scanning operation
+// 	scanner.Split(bufio.ScanWords)
+// 	// Create slice to hold counts
+// 	buckets := make([]int, 200)
+// 	// Loop over the words
+// 	for scanner.Scan() {
+// 		n := hashBucket(scanner.Text())
+// 		buckets[n]++
+// 	}
+// 	fmt.Println(buckets[65:123])
+// }
+
 func main() {
 
 }
