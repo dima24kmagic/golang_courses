@@ -1,5 +1,10 @@
 package main
 
+import (
+	"math"
+	"fmt"
+)
+
 // Passign the callback and returning function
 // func wrapper(cb func()) func(someVal int) {
 // 	cb()
@@ -932,6 +937,180 @@ package main
 // 	fmt.Println(buckets[65:123])
 // }
 
-func main() {
+// :* Go Structs *:
+// AGGREGATE TYPE EXAMPLE
+// NOTE: Aggregate mean, that you aggregate together bunch of stuff
+// type person struct {
+// 	first string
+// 	last  string
+// 	age   int
+// }
+// func main() {
+// 	p1 := person{"Dima", "Baranov", 18}
+// 	fmt.Println(p1.first)
+// }
 
-}
+// Underlying Type
+// NOTE: how my new type reffer too another type
+// type myType int
+
+// func main() {
+// 	var aka myType
+// 	aka = 5
+// 	fmt.Println(aka)
+// }
+
+// NOTE: Embeded Types
+// type person struct {
+// 	First string
+// 	Last  string
+// }
+// type human struct {
+// 	person
+// 	First  string
+// 	Height int
+// }
+
+// func main() {
+// NOTE: Here is overwriting fields
+// 	h := human{
+// 		person: person{
+// 			"Dima",
+// 			"Baranov",
+// 		},
+// 		First: "Cheddr", Height: 173}
+// 	fmt.Println(h.person.First, h.First)
+// }
+
+// NOTE: struct Methods with receiver in function
+// type person struct {
+// 	first string
+// 	last  string
+// 	age   int
+// }
+// //NOTE: Method for person type, that can access person vars, using receiver
+// func (p person) fullName() string {
+// 	return p.first + " " + p.last
+// }
+
+// func main() {
+// 	p1 := person{"Dima", "Baranov", 18}
+// 	fmt.Println(p1.fullName())
+// }
+
+// Struct Pointers
+// type person struct {
+// 	first string
+// 	last  string
+// 	age   int
+// }
+// func (p person) getAge() {
+// 	fmt.Println(p.age)
+// }
+// func main() {
+// 	p1 := person{"Dima", "Baranov", 17}
+// 	p1.getAge()
+// }
+
+// NOTE: Work With JSON
+// :* JSON Marshal *:
+// type person struct {
+// 	First string `json:"firstName"`
+// 	Last  string `json:"lastName"`
+// 	Age   int    `json:"age"`
+// }
+// func main() {
+// 	p1 := person{"Dima", "L", 18}
+// 	bs, _ := json.Marshal(p1)
+// 	fmt.Println(bs)
+// 	// fmt.Printf("%T \n", bs)
+// 	fmt.Println(string(bs))
+// }
+
+// :* JSON Unmarshal *:
+// type person struct {
+// 	First string
+// 	Last  string
+// 	Age   int
+// }
+// NOTE: I use TAGS to set json data from unmarshall here
+// type dick struct {
+// 	Ty   string `json:"First"`
+// 	Pack string `json:"Last"`
+// 	Sha  int `json:"Age"`
+// 	Koor string
+// }
+// func main() {
+// 	var p1 person
+// 	fmt.Println(p1.First)
+// 	fmt.Println(p1.Last)
+// 	fmt.Println(p1.Age)
+// 	bs := []byte(`{"First":"James", "Last":"Bond", "Age":32}`)
+// 	//Unmarshal is put values to the interface
+// 	var test dick
+// 	json.Unmarshal(bs, &test)
+// 	fmt.Println(test.Ty)
+// 	fmt.Println(test.Pack)
+// 	fmt.Println(test.Sha)
+// }
+
+// :* JSON ENCODING *:
+// type person struct {
+// 	First string
+// 	Last  string
+// 	Age   int
+// }
+// func main() {
+// 	p1 := person{"Dima", "L", 18}
+// 	json.NewEncoder(os.Stdout).Encode(p1)
+// }
+
+// :* JSON DECODING *:
+// type person struct {
+// 	First string
+// 	Last  string
+// 	Age   int
+// }
+// func main() {
+// 	var p1 person
+// 	rdr := strings.NewReader(`{"First": "James", "Last":"Bond", "Age": 17}`)
+// 	json.NewDecoder(rdr).Decode(&p1)
+// 	fmt.Println(p1.First)
+// 	fmt.Println(p1.Last)
+// 	fmt.Println(p1.Age)
+// }
+
+// NOTE::* Interfaces *:NOTE:
+// Interfaces let us create substitutability ( взаимозаменяемость )
+// This is type of Square but it's implement a method area() on line :* 1095 *:
+// type Square struct {
+// 	side float64
+// }
+// // Circle is type of Circle but it's implement a method area() on line :* 1102 *: so it can be treted as shape type
+// type Circle struct {
+// 	radius float64
+// }
+
+// // NOTE: Anything that got this method (area() method) signature - implement this interface
+// type shape interface {
+// 	area() float64
+// }
+
+// func (z Square) area() float64 {
+// 	return z.side * z.side
+// }
+
+// func (c Circle) area() float64 {
+// 	return 2 * math.Pi * c.radius
+// }
+// // Because Square type is implement Shape interface area method - it's become a type of shape
+// func info(z shape) {
+// 	fmt.Println(z)
+// 	fmt.Println(z.area())
+// }
+// func main() {
+// 	s := Square{10}
+// 	info(s)
+// 	c := Circle{3.15}
+// 	info(c)
+// }
